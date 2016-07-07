@@ -9,14 +9,14 @@ var Link = require('../app/models/link');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
+var xbeforeEach = function(){}; 
 /////////////////////////////////////////////////////
 
-var User = require('../app/models/user');
-var Link = require('../app/models/link');
+//var User = require('../app/models/user');
+//var Link = require('../app/models/link');
+
 (function() {
-
-
-  beforeEach(function(done) {
+  xbeforeEach(function(done) {
     // Log out currently signed in user
     request(app)
       .get('/logout')
@@ -51,7 +51,10 @@ var Link = require('../app/models/link');
             'url': 'http://www.roflzoo.com/'})
           .expect(200)
           .expect(function(res) {
+            //console.log("RESPONSE!", res.statusCode, res.body);
+            //console.log('EQUAL?', 'http://www.roflzoo.com/' === res.body.url);
             expect(res.body.url).to.equal('http://www.roflzoo.com/');
+            console.log('bodycode!', res.body.code);
             expect(res.body.code).to.be.ok;
           })
           .end(done);
