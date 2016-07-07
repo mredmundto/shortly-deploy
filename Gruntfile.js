@@ -3,6 +3,14 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      js: {
+        src: 'public/client/*.js',
+        dest: 'public/concat/concat.js'
+      }, 
+      css: {
+        src: 'public/*.css',
+        dest: 'public/concat/concat.css'
+      }
     },
 
     mochaTest: {
@@ -21,11 +29,20 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      target: {
+        files: {
+          'public/ugly/concat.min.js': ['public/concat/concat.js']
+        }
+      }
     },
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'app/**/*.js',
+        'lib/**/*.js',
+        'public/client/**/*.js',
+        'server.js',
+        'server-config.js'
       ]
     },
 
@@ -52,8 +69,13 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: ['git add . ', 
+                  'git commit ',
+                  'git push live master'
+        ]
       }
     },
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -77,7 +99,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build', ['test', 'eslint', 'concat', 'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -88,8 +110,11 @@ module.exports = function(grunt) {
     }
   });
 
+
+
   grunt.registerTask('deploy', [
       // add your production server task here
+      'build', 'shell'
   ]);
 
 
