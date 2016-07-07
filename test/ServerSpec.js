@@ -15,6 +15,7 @@ var User = require('../app/models/user');
 var Link = require('../app/models/link');
 (function() {
 
+
   beforeEach(function(done) {
     // Log out currently signed in user
     request(app)
@@ -137,7 +138,7 @@ var Link = require('../app/models/link');
 
   describe('Priviledged Access:', function() {
 
-    // /*  Authentication  */
+    // /*  Authentication  *//*
     // // TODO: xit out authentication
     it('Redirects to login page if a user tries to access the main page and is not signed in', function(done) {
       request(app)

@@ -37,4 +37,23 @@ db.knex.schema.hasTable('users').then(function(exists) {
   }
 });
 
+
+/*
+var mongooese = require('mongooese'); 
+//?
+var db = mongooese.connect('mongodb://localhost/db'); 
+
+var userSchema = new Schema({
+  // auto increment id 
+  username: {type: String, required: true, unique: true},  
+  password: {type: String, required: true },
+  // timestamp or time  
+  time: { type: Date, default: Date.now }
+});
+
+var User = mongoese.model('User', userSchema); 
+module.exports = User;
+*/
+
 module.exports = db;
+
